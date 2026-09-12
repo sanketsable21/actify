@@ -103,7 +103,6 @@ public class UserService {
         return toResponse(userRepository.save(user));
     }
 
-    // -------- Helper: convert User entity → UserResponse DTO --------
     private UserResponse toResponse(User user) {
         Set<String> roleNames = user.getRoles().stream()
                 .map(Role::getName)

@@ -56,14 +56,12 @@ public class AuthController {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        // Assign default USER role
         Set<Role> roles = new HashSet<>();
         roleRepository.findByName("USER").ifPresent(roles::add);
         user.setRoles(roles);
 
         userRepository.save(user);
 
-        // Auto-login after registration
         String token = jwtUtil.generateToken(user.getEmail());
 
         return ResponseEntity.status(HttpStatus.CREATED)

@@ -22,14 +22,12 @@ public class UserController {
         this.taskService = taskService;
     }
 
-    // View own profile — email comes from the JWT
     @GetMapping("/profile")
     public ResponseEntity<UserResponse> getMyProfile(Authentication authentication) {
         String email = authentication.getName();
         return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
-    // View own tasks
     @GetMapping("/tasks")
     public ResponseEntity<List<TaskResponse>> getMyTasks(Authentication authentication) {
         String email = authentication.getName();

@@ -21,26 +21,22 @@ public class AdminController {
         this.userService = userService;
     }
 
-    // GET all users
     @GetMapping("/users")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    // GET one user by id
     @GetMapping("/users/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    // CREATE a user
     @PostMapping("/users")
     public ResponseEntity<UserResponse> createUser(@Valid @RequestBody RegisterRequest request) {
         UserResponse created = userService.createUser(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    // UPDATE a user
     @PutMapping("/users/{id}")
     public ResponseEntity<UserResponse> updateUser(
             @PathVariable Long id,
@@ -48,14 +44,12 @@ public class AdminController {
         return ResponseEntity.ok(userService.updateUser(id, request));
     }
 
-    // DELETE a user
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
-    // ASSIGN a role to a user
     @PostMapping("/assign-role")
     public ResponseEntity<UserResponse> assignRole(
             @Valid @RequestBody AssignRoleRequest request) {

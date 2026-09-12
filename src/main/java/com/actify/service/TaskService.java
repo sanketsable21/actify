@@ -66,7 +66,6 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
-    // -------- Helper: convert Task entity → TaskResponse DTO --------
     private TaskResponse toResponse(Task task) {
         Long userId = null;
         String userName = null;

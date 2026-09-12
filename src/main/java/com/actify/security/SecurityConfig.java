@@ -47,17 +47,13 @@ public class SecurityConfig {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                // Public endpoints — login and register
                 .requestMatchers("/api/auth/**").permitAll()
 
-                // Role-based restrictions
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/manager/**").hasRole("MANAGER")
 
-                // Any authenticated user
                 .requestMatchers("/api/user/**").authenticated()
 
-                // Everything else
                 .anyRequest().authenticated()
             )
             .sessionManagement(session ->

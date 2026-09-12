@@ -34,24 +34,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         final String authHeader = request.getHeader("Authorization");
 
-        // If no token, skip and let the request continue (may reach public endpoints)
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        String jwt = authHeader.substring(7); // remove "Bearer "
+        String jwt = authHeader.substring(7);
         String userEmail;
 
         try {
             userEmail = jwtUtil.extractEmail(jwt);
         } catch (Exception e) {
-            // Invalid token — just skip
             filterChain.doFilter(request, response);
             return;
         }
-
-        // If email extracted and user not already authenticated
+        
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
 

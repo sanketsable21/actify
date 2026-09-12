@@ -13,5 +13,5 @@ public class UserResponse {
     private Long id;
     private String name;
     private String email;
-    private Set<String> roles;   // just role names, not full Role objects
+    private Set<String> roles; 
 }

@@ -19,7 +19,6 @@ public class DataInitializer {
                                        UserRepository userRepository,
                                        PasswordEncoder passwordEncoder) {
         return args -> {
-            // ===== Seed Roles (only if not present) =====
             Role adminRole = roleRepository.findByName("ADMIN")
                     .orElseGet(() -> roleRepository.save(new Role("ADMIN")));
 
@@ -29,7 +28,6 @@ public class DataInitializer {
             Role userRole = roleRepository.findByName("USER")
                     .orElseGet(() -> roleRepository.save(new Role("USER")));
 
-            // ===== Seed Users (only if not present) =====
             if (!userRepository.existsByEmail("admin@actify.com")) {
                 User admin = new User();
                 admin.setName("Admin User");

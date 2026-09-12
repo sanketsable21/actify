@@ -22,7 +22,6 @@ public class Task {
     @Column(length = 1000)
     private String description;
 
-    // Many tasks can be assigned to one user
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assigned_to")
     private User assignedTo;

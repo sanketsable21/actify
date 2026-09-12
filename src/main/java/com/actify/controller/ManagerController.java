@@ -24,32 +24,27 @@ public class ManagerController {
         this.taskService = taskService;
     }
 
-    // View all users
     @GetMapping("/users")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    // View tasks assigned to a specific user
     @GetMapping("/users/{userId}/tasks")
     public ResponseEntity<List<TaskResponse>> getTasksForUser(@PathVariable Long userId) {
         return ResponseEntity.ok(taskService.getTasksForUser(userId));
     }
 
-    // View all tasks
     @GetMapping("/tasks")
     public ResponseEntity<List<TaskResponse>> getAllTasks() {
         return ResponseEntity.ok(taskService.getAllTasks());
     }
 
-    // Assign a new task to a user
     @PostMapping("/tasks")
     public ResponseEntity<TaskResponse> assignTask(@Valid @RequestBody TaskRequest request) {
         TaskResponse created = taskService.createTask(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    // Delete a task
     @DeleteMapping("/tasks/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
